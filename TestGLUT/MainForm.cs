@@ -13,25 +13,31 @@ using Tao.Platform.Windows;
 
 namespace TestGLUT
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         // вспомогательные переменные - в них будут храниться обработанные значения, 
         // полученные при перетаскивании ползунков пользователем 
-        double a = 0, b = 0, c = -5, d = 0, zoom = 1; // выбранные оси 
-        int os_x = 1, os_y = 0, os_z = 0;
+        Interaction Inter = new Interaction();
+
+        //Cameras Camera = new Cameras();
+        //Rotate rotate = new Rotate();
+        //double Angle = 0;
+        //double a = 0, b = 0, c = -5, d = 0, zoom = 1; // выбранные оси 
+        //int os_x = 1, os_y = 0, os_z = 0;
 
         // режим сеточной визуализации 
-        bool Wire = false;
+        //bool Wire = false;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             AnT.InitializeContexts();
+
+            AnT.MouseWheel += new MouseEventHandler(AnT_MouseWheel);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
-
             // инициализация библиотеки glut 
             Glut.glutInit();
             // инициализация режима экрана 
@@ -65,9 +71,8 @@ namespace TestGLUT
 
             // активация таймера, вызывающего функцию для визуализации 
             RenderTimer.Start();
-
         }
-        
+
         // обрабатываем отклик таймера 
         private void RenderTimer_Tick(object sender, EventArgs e)
         {
@@ -76,48 +81,48 @@ namespace TestGLUT
         }
 
         // событие изменения значения 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void TrackBarAxisX_Scroll(object sender, EventArgs e)
         {
             // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            a = (double)trackBar1.Value / 1000.0;
+            Inter.Camera.X = (double)TrackBarAxisX.Value / 1000.0;
             // подписываем это значение в label элементе под данным ползунком 
-            label8.Text = a.ToString();
+            ValueAxisX.Text = Inter.Camera.X.ToString();
         }
 
         // событие изменения значения 
-        private void trackBar2_Scroll(object sender, EventArgs e)
+        private void TrackBarAxisY_Scroll(object sender, EventArgs e)
         {
             // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            b = (double)trackBar2.Value / 1000.0;
+            Inter.Camera.Y = (double)TrackBarAxisY.Value / 1000.0;
             // подписываем это значение в label элементе под данным ползунком 
-            label9.Text = b.ToString();
+            ValueAxisY.Text = Inter.Camera.Y.ToString();
         }
 
         // событие изменения значения 
-        private void trackBar3_Scroll(object sender, EventArgs e)
+        private void TrackBarAxisZ_Scroll(object sender, EventArgs e)
         {
             // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            c = (double)trackBar3.Value / 1000.0;
+            Inter.Camera.Z = (double)TrackBarAxisZ.Value / 1000.0;
             // подписываем это значение в label элементе под данным ползунком 
-            label10.Text = c.ToString();
+            ValueAxisZ.Text = Inter.Camera.Z.ToString();
         }
 
         // событие изменения значения 
-        private void trackBar4_Scroll(object sender, EventArgs e)
+        private void TrackBarAngle_Scroll(object sender, EventArgs e)
         {
             // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            d = (double)trackBar4.Value;
+            Inter.Angle = (double)TrackBarAngle.Value;
             // подписываем это значение в label элементе под данным ползунком 
-            label11.Text = d.ToString();
+            ValueAngle.Text = Inter.Angle.ToString();
         }
 
         // событие изменения значения 
-        private void trackBar5_Scroll(object sender, EventArgs e)
+        private void TrackBarZoom_Scroll(object sender, EventArgs e)
         {
             // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            zoom = (double)trackBar5.Value / 1000.0;
+            Inter.Camera.Zoom = (double)TrackBarZoom.Value / 1000;
             // подписываем это значение в label элементе под данным ползунком 
-            label12.Text = zoom.ToString();
+            ValueZoom.Text = Inter.Camera.Zoom.ToString();
         }
 
         // изменения значения чекбокса 
@@ -127,12 +132,12 @@ namespace TestGLUT
             if (checkBox1.Checked)
             {
                 // устанавливаем сеточный режим визуализации 
-                Wire = true;
+                Inter.Wire = true;
             }
             else
             {
                 // иначе - полигональная визуализация 
-                Wire = false;
+                Inter.Wire = false;
             }
         }
 
@@ -145,23 +150,17 @@ namespace TestGLUT
                 // устанавливаем необходимую ось (будет использована в функции glRotate**) 
                 case 0:
                     {
-                        os_x = 1;
-                        os_y = 0;
-                        os_z = 0;
+                        Inter.Rotation.SelectX();
                         break;
                     }
                 case 1:
                     {
-                        os_x = 0;
-                        os_y = 1;
-                        os_z = 0;
+                        Inter.Rotation.SelectY();
                         break;
                     }
                 case 2:
                     {
-                        os_x = 0;
-                        os_y = 0;
-                        os_z = 1;
+                        Inter.Rotation.SelectZ();
                         break;
                     }
             }
@@ -181,11 +180,11 @@ namespace TestGLUT
             // помещаем состояние матрицы в стек матриц, дальнейшие трансформации затронут только визуализацию объекта 
             Gl.glPushMatrix();
             // производим перемещение в зависимости от значений, полученных при перемещении ползунков 
-            Gl.glTranslated(a, b, c);
+            Gl.glTranslated(Inter.Camera.X, Inter.Camera.Y, Inter.Camera.Z);
             // поворот по установленной оси 
-            Gl.glRotated(d, os_x, os_y, os_z);
+            Gl.glRotated(Inter.Angle, Inter.Rotation.X, Inter.Rotation.Y, Inter.Rotation.Z);
             // и масштабирование объекта 
-            Gl.glScaled(zoom, zoom, zoom);
+            Gl.glScaled(Inter.Camera.Zoom, Inter.Camera.Zoom, Inter.Camera.Zoom);
 
             // в зависимости от установленного типа объекта 
             switch (comboBox2.SelectedIndex)
@@ -193,7 +192,7 @@ namespace TestGLUT
                 // рисуем нужный объект, используя функции библиотеки GLUT 
                 case 0:
                     {
-                        if (Wire) // если установлен сеточный режим визуализации 
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
                             Glut.glutWireSphere(2, 16, 16); // сеточная сфера 
                         else
                             Glut.glutSolidSphere(2, 16, 16); // полигональная сфера 
@@ -201,7 +200,7 @@ namespace TestGLUT
                     }
                 case 1:
                     {
-                        if (Wire) // если установлен сеточный режим визуализации 
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
                             Glut.glutWireCylinder(1, 2, 32, 32); // цилиндр 
                         else
                             Glut.glutSolidCylinder(1, 2, 32, 32);
@@ -209,7 +208,7 @@ namespace TestGLUT
                     }
                 case 2:
                     {
-                        if (Wire) // если установлен сеточный режим визуализации 
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
                             Glut.glutWireCube(2); // куб 
                         else
                             Glut.glutSolidCube(2);
@@ -217,7 +216,7 @@ namespace TestGLUT
                     }
                 case 3:
                     {
-                        if (Wire) // если установлен сеточный режим визуализации 
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
                             Glut.glutWireCone(2, 3, 32, 32); // конус 
                         else
                             Glut.glutSolidCone(2, 3, 32, 32);
@@ -225,7 +224,7 @@ namespace TestGLUT
                     }
                 case 4:
                     {
-                        if (Wire) // если установлен сеточный режим визуализации 
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
                             Glut.glutWireTorus(0.2, 2.2, 32, 32); // тор 
                         else
                             Glut.glutSolidTorus(0.2, 2.2, 32, 32);
@@ -242,6 +241,19 @@ namespace TestGLUT
             // обновляем элемент AnT 
             AnT.Invalidate();
 
+        }
+
+
+        void AnT_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta == 120)
+                Inter.Camera.Zoom = Inter.Camera.Zoom - 0.1;
+            else if (e.Delta == -120)
+                Inter.Camera.Zoom = Inter.Camera.Zoom + 0.1;
+
+            TrackBarZoom.Value = (int)(Inter.Camera.Zoom * 1000);
+            ValueZoom.Text = Inter.Camera.Zoom.ToString();
+            
         }
     }
 }
