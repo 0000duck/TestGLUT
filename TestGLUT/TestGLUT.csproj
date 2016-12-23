@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Angles.cs" />
     <Compile Include="Cameras.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

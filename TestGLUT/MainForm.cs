@@ -17,22 +17,15 @@ namespace TestGLUT
     {
         // вспомогательные переменные - в них будут храниться обработанные значения, 
         // полученные при перетаскивании ползунков пользователем 
-        Interaction Inter = new Interaction();
+        private Interaction Inter = new Interaction();
+        private Rotate R = new Rotate();
 
-        //Cameras Camera = new Cameras();
-        //Rotate rotate = new Rotate();
-        //double Angle = 0;
-        //double a = 0, b = 0, c = -5, d = 0, zoom = 1; // выбранные оси 
-        //int os_x = 1, os_y = 0, os_z = 0;
-
-        // режим сеточной визуализации 
-        //bool Wire = false;
 
         public MainForm()
         {
             InitializeComponent();
             AnT.InitializeContexts();
-
+            
             AnT.MouseWheel += new MouseEventHandler(AnT_MouseWheel);
         }
 
@@ -66,8 +59,8 @@ namespace TestGLUT
             Gl.glEnable(Gl.GL_LIGHT0);
 
             // установка первых элементов в списках combobox 
-            comboBox1.SelectedIndex = 0;
-            comboBox2.SelectedIndex = 0;
+            AxisComboBox.SelectedIndex = 0;
+            ObjectComboBox.SelectedIndex = 0;
 
             // активация таймера, вызывающего функцию для визуализации 
             RenderTimer.Start();
@@ -111,7 +104,7 @@ namespace TestGLUT
         private void TrackBarAngle_Scroll(object sender, EventArgs e)
         {
             // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            Inter.Angle = (double)TrackBarAngle.Value;
+            //Inter.Angle = (double)TrackBarAngle.Value;
             // подписываем это значение в label элементе под данным ползунком 
             ValueAngle.Text = Inter.Angle.ToString();
         }
@@ -129,7 +122,7 @@ namespace TestGLUT
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             // если отмечен 
-            if (checkBox1.Checked)
+            if (WireCheckBox.Checked)
             {
                 // устанавливаем сеточный режим визуализации 
                 Inter.Wire = true;
@@ -145,7 +138,7 @@ namespace TestGLUT
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // в зависимости от выбранного режима 
-            switch (comboBox1.SelectedIndex)
+            switch (AxisComboBox.SelectedIndex)
             {
                 // устанавливаем необходимую ось (будет использована в функции glRotate**) 
                 case 0:
@@ -181,13 +174,22 @@ namespace TestGLUT
             Gl.glPushMatrix();
             // производим перемещение в зависимости от значений, полученных при перемещении ползунков 
             Gl.glTranslated(Inter.Camera.X, Inter.Camera.Y, Inter.Camera.Z);
+
+
+
             // поворот по установленной оси 
-            Gl.glRotated(Inter.Angle, Inter.Rotation.X, Inter.Rotation.Y, Inter.Rotation.Z);
+            //Gl.glRotated(Inter.Angle, Inter.Rotation.X, Inter.Rotation.Y, Inter.Rotation.Z);
+
+            //Gl.glRotated()
+            Rotating();
+            AutoRotating();
+            
+            
             // и масштабирование объекта 
             Gl.glScaled(Inter.Camera.Zoom, Inter.Camera.Zoom, Inter.Camera.Zoom);
 
             // в зависимости от установленного типа объекта 
-            switch (comboBox2.SelectedIndex)
+            switch (ObjectComboBox.SelectedIndex)
             {
                 // рисуем нужный объект, используя функции библиотеки GLUT 
                 case 0:
@@ -225,11 +227,18 @@ namespace TestGLUT
                 case 4:
                     {
                         if (Inter.Wire) // если установлен сеточный режим визуализации 
-                            Glut.glutWireTorus(0.2, 2.2, 32, 32); // тор 
+                            Glut.glutWireTorus(0.5, 1.5, 32, 32); // тор 
                         else
-                            Glut.glutSolidTorus(0.2, 2.2, 32, 32);
+                            Glut.glutSolidTorus(0.5, 1.5, 32, 32);
                         break;
                     }
+            }
+
+            if (AutoRotateCheckBox.Checked)
+            {
+                //Inter.Angle = Inter.Angle == 360 ? -360 : Inter.Angle + 1;
+                //ValueAngle.Text = Inter.Angle.ToString();
+                //TrackBarAngle.Value = (int)Inter.Angle;
             }
 
             // возвращаем состояние матрицы 
@@ -243,7 +252,7 @@ namespace TestGLUT
 
         }
 
-
+        
         void AnT_MouseWheel(object sender, MouseEventArgs e)
         {
             if (e.Delta == 120)
@@ -254,6 +263,54 @@ namespace TestGLUT
             TrackBarZoom.Value = (int)(Inter.Camera.Zoom * 1000);
             ValueZoom.Text = Inter.Camera.Zoom.ToString();
             
+        }
+
+        private void AutoRotateXTrackBar_Scroll(object sender, EventArgs e)
+        {
+            Inter.Angle.X = AutoRotateXTrackBar.Value;
+            ValueAutoRotateXLabel.Text = AutoRotateXTrackBar.Value.ToString();
+        }
+
+        private void AutoRotateYTrackBar_Scroll(object sender, EventArgs e)
+        {
+            Inter.Angle.Y = AutoRotateYTrackBar.Value;
+            ValueAutoRotateYLabel.Text = AutoRotateYTrackBar.Value.ToString();
+        }
+
+        private void AutoRotateZTrackBar_Scroll(object sender, EventArgs e)
+        {
+            Inter.Angle.Z = AutoRotateZTrackBar.Value;
+            ValueAutoRotateZLabel.Text = AutoRotateZTrackBar.Value.ToString();
+        }
+
+        private void Rotating()
+        {
+            R.SelectX();
+            Gl.glRotated(Inter.Angle.X, R.X, R.Y, R.Z);
+
+            R.SelectY();
+            Gl.glRotated(Inter.Angle.Y, R.X, R.Y, R.Z);
+
+            R.SelectZ();
+            Gl.glRotated(Inter.Angle.Z, R.X, R.Y, R.Z);
+        }
+
+        private void AutoRotating()
+        {
+            if(AutoRotateCheckBox.Checked)
+            {
+                Inter.Angle.X = Inter.Angle.X == 360 ? -360 : Inter.Angle.X + 1;
+                ValueAutoRotateXLabel.Text = Inter.Angle.X.ToString();
+                AutoRotateXTrackBar.Value = (int)Inter.Angle.X;
+
+                Inter.Angle.Y = Inter.Angle.Y == 360 ? -360 : Inter.Angle.Y + 2;
+                ValueAutoRotateYLabel.Text = Inter.Angle.Y.ToString();
+                AutoRotateYTrackBar.Value = (int)Inter.Angle.Y;
+
+                Inter.Angle.Z = Inter.Angle.Z == 360 ? -360 : Inter.Angle.Z + 3;
+                ValueAutoRotateZLabel.Text = Inter.Angle.Z.ToString();
+                AutoRotateZTrackBar.Value = (int)Inter.Angle.Z;
+            }
         }
     }
 }
