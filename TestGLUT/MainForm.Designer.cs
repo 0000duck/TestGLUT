@@ -30,27 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AnT = new Tao.Platform.Windows.SimpleOpenGlControl();
-            this.AxisComboBox = new System.Windows.Forms.ComboBox();
             this.ObjectComboBox = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.TitleAxisX = new System.Windows.Forms.Label();
-            this.TrackBarAxisX = new System.Windows.Forms.TrackBar();
-            this.TrackBarAxisY = new System.Windows.Forms.TrackBar();
-            this.TitleAxisY = new System.Windows.Forms.Label();
-            this.TrackBarAxisZ = new System.Windows.Forms.TrackBar();
-            this.TitleAxisZ = new System.Windows.Forms.Label();
-            this.TrackBarAngle = new System.Windows.Forms.TrackBar();
-            this.TitleAngle = new System.Windows.Forms.Label();
-            this.TrackBarZoom = new System.Windows.Forms.TrackBar();
-            this.TitleZoom = new System.Windows.Forms.Label();
-            this.ValueAxisX = new System.Windows.Forms.Label();
-            this.ValueAxisY = new System.Windows.Forms.Label();
-            this.ValueAxisZ = new System.Windows.Forms.Label();
             this.RenderTimer = new System.Windows.Forms.Timer(this.components);
             this.WireCheckBox = new System.Windows.Forms.CheckBox();
-            this.ValueAngle = new System.Windows.Forms.Label();
-            this.ValueZoom = new System.Windows.Forms.Label();
             this.AutoRotateCheckBox = new System.Windows.Forms.CheckBox();
             this.AutoRotateXTrackBar = new System.Windows.Forms.TrackBar();
             this.AutoRotateXLabel = new System.Windows.Forms.Label();
@@ -61,14 +44,26 @@
             this.ValueAutoRotateZLabel = new System.Windows.Forms.Label();
             this.AutoRotateZLabel = new System.Windows.Forms.Label();
             this.AutoRotateZTrackBar = new System.Windows.Forms.TrackBar();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBarAxisX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBarAxisY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBarAxisZ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBarAngle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBarZoom)).BeginInit();
+            this.AutoRotateGroupBox = new System.Windows.Forms.GroupBox();
+            this.RotateZTrackBar = new System.Windows.Forms.TrackBar();
+            this.ValueRotateZLabel = new System.Windows.Forms.Label();
+            this.TitleRotateZLabel = new System.Windows.Forms.Label();
+            this.RotateXTrackBar = new System.Windows.Forms.TrackBar();
+            this.TitleRotateXLabel = new System.Windows.Forms.Label();
+            this.ValueRotateYLabel = new System.Windows.Forms.Label();
+            this.ValueRotateXLabel = new System.Windows.Forms.Label();
+            this.TitleRotateYLabel = new System.Windows.Forms.Label();
+            this.RotateYTrackBar = new System.Windows.Forms.TrackBar();
+            this.LinkLabel = new System.Windows.Forms.LinkLabel();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.AutoRotateXTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AutoRotateYTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AutoRotateZTrackBar)).BeginInit();
+            this.AutoRotateGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RotateZTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RotateXTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RotateYTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // AnT
@@ -87,22 +82,6 @@
             this.AnT.StencilBits = ((byte)(0));
             this.AnT.TabIndex = 0;
             // 
-            // AxisComboBox
-            // 
-            this.AxisComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AxisComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.AxisComboBox.FormattingEnabled = true;
-            this.AxisComboBox.Items.AddRange(new object[] {
-            "Вращать вдоль X",
-            "Вращать вдоль Y",
-            "Вращать вдоль Z"});
-            this.AxisComboBox.Location = new System.Drawing.Point(519, 36);
-            this.AxisComboBox.Name = "AxisComboBox";
-            this.AxisComboBox.Size = new System.Drawing.Size(247, 21);
-            this.AxisComboBox.TabIndex = 1;
-            this.AxisComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
             // ObjectComboBox
             // 
             this.ObjectComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -114,156 +93,27 @@
             "Цилиндр",
             "Куб",
             "Конус",
-            "Тор"});
-            this.ObjectComboBox.Location = new System.Drawing.Point(519, 90);
+            "Тор",
+            "Додекайдер",
+            "Исосахедрон (Icosahedron?)",
+            "Octahedron",
+            "RhombicDodecahedron",
+            "SierpinskiSponge (огонь вообще)",
+            "Чайник",
+            "Tetrahedron"});
+            this.ObjectComboBox.Location = new System.Drawing.Point(519, 28);
             this.ObjectComboBox.Name = "ObjectComboBox";
             this.ObjectComboBox.Size = new System.Drawing.Size(247, 21);
             this.ObjectComboBox.TabIndex = 2;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(519, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "По оси";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(519, 74);
+            this.label2.Location = new System.Drawing.Point(519, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 13);
+            this.label2.Size = new System.Drawing.Size(111, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Объект для визуализации";
-            // 
-            // TitleAxisX
-            // 
-            this.TitleAxisX.AutoSize = true;
-            this.TitleAxisX.Location = new System.Drawing.Point(516, 148);
-            this.TitleAxisX.Name = "TitleAxisX";
-            this.TitleAxisX.Size = new System.Drawing.Size(14, 13);
-            this.TitleAxisX.TabIndex = 5;
-            this.TitleAxisX.Text = "X";
-            // 
-            // TrackBarAxisX
-            // 
-            this.TrackBarAxisX.Location = new System.Drawing.Point(519, 164);
-            this.TrackBarAxisX.Maximum = 50000;
-            this.TrackBarAxisX.Minimum = -50000;
-            this.TrackBarAxisX.Name = "TrackBarAxisX";
-            this.TrackBarAxisX.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.TrackBarAxisX.Size = new System.Drawing.Size(45, 119);
-            this.TrackBarAxisX.TabIndex = 6;
-            this.TrackBarAxisX.Scroll += new System.EventHandler(this.TrackBarAxisX_Scroll);
-            // 
-            // TrackBarAxisY
-            // 
-            this.TrackBarAxisY.Location = new System.Drawing.Point(570, 164);
-            this.TrackBarAxisY.Maximum = 50000;
-            this.TrackBarAxisY.Minimum = -50000;
-            this.TrackBarAxisY.Name = "TrackBarAxisY";
-            this.TrackBarAxisY.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.TrackBarAxisY.Size = new System.Drawing.Size(45, 119);
-            this.TrackBarAxisY.TabIndex = 8;
-            this.TrackBarAxisY.Scroll += new System.EventHandler(this.TrackBarAxisY_Scroll);
-            // 
-            // TitleAxisY
-            // 
-            this.TitleAxisY.AutoSize = true;
-            this.TitleAxisY.Location = new System.Drawing.Point(567, 148);
-            this.TitleAxisY.Name = "TitleAxisY";
-            this.TitleAxisY.Size = new System.Drawing.Size(14, 13);
-            this.TitleAxisY.TabIndex = 7;
-            this.TitleAxisY.Text = "Y";
-            // 
-            // TrackBarAxisZ
-            // 
-            this.TrackBarAxisZ.Location = new System.Drawing.Point(621, 164);
-            this.TrackBarAxisZ.Maximum = 50000;
-            this.TrackBarAxisZ.Minimum = -50000;
-            this.TrackBarAxisZ.Name = "TrackBarAxisZ";
-            this.TrackBarAxisZ.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.TrackBarAxisZ.Size = new System.Drawing.Size(45, 119);
-            this.TrackBarAxisZ.TabIndex = 10;
-            this.TrackBarAxisZ.Scroll += new System.EventHandler(this.TrackBarAxisZ_Scroll);
-            // 
-            // TitleAxisZ
-            // 
-            this.TitleAxisZ.AutoSize = true;
-            this.TitleAxisZ.Location = new System.Drawing.Point(618, 148);
-            this.TitleAxisZ.Name = "TitleAxisZ";
-            this.TitleAxisZ.Size = new System.Drawing.Size(14, 13);
-            this.TitleAxisZ.TabIndex = 9;
-            this.TitleAxisZ.Text = "Z";
-            // 
-            // TrackBarAngle
-            // 
-            this.TrackBarAngle.Location = new System.Drawing.Point(672, 164);
-            this.TrackBarAngle.Maximum = 360;
-            this.TrackBarAngle.Minimum = -360;
-            this.TrackBarAngle.Name = "TrackBarAngle";
-            this.TrackBarAngle.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.TrackBarAngle.Size = new System.Drawing.Size(45, 119);
-            this.TrackBarAngle.TabIndex = 12;
-            this.TrackBarAngle.Scroll += new System.EventHandler(this.TrackBarAngle_Scroll);
-            // 
-            // TitleAngle
-            // 
-            this.TitleAngle.AutoSize = true;
-            this.TitleAngle.Location = new System.Drawing.Point(669, 148);
-            this.TitleAngle.Name = "TitleAngle";
-            this.TitleAngle.Size = new System.Drawing.Size(34, 13);
-            this.TitleAngle.TabIndex = 11;
-            this.TitleAngle.Text = "Angle";
-            // 
-            // TrackBarZoom
-            // 
-            this.TrackBarZoom.Location = new System.Drawing.Point(723, 164);
-            this.TrackBarZoom.Maximum = 5000;
-            this.TrackBarZoom.Minimum = -5000;
-            this.TrackBarZoom.Name = "TrackBarZoom";
-            this.TrackBarZoom.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.TrackBarZoom.Size = new System.Drawing.Size(45, 119);
-            this.TrackBarZoom.TabIndex = 14;
-            this.TrackBarZoom.Scroll += new System.EventHandler(this.TrackBarZoom_Scroll);
-            // 
-            // TitleZoom
-            // 
-            this.TitleZoom.AutoSize = true;
-            this.TitleZoom.Location = new System.Drawing.Point(720, 148);
-            this.TitleZoom.Name = "TitleZoom";
-            this.TitleZoom.Size = new System.Drawing.Size(34, 13);
-            this.TitleZoom.TabIndex = 13;
-            this.TitleZoom.Text = "Zoom";
-            // 
-            // ValueAxisX
-            // 
-            this.ValueAxisX.AutoSize = true;
-            this.ValueAxisX.Location = new System.Drawing.Point(531, 286);
-            this.ValueAxisX.Name = "ValueAxisX";
-            this.ValueAxisX.Size = new System.Drawing.Size(13, 13);
-            this.ValueAxisX.TabIndex = 15;
-            this.ValueAxisX.Text = "0";
-            // 
-            // ValueAxisY
-            // 
-            this.ValueAxisY.AutoSize = true;
-            this.ValueAxisY.Location = new System.Drawing.Point(581, 286);
-            this.ValueAxisY.Name = "ValueAxisY";
-            this.ValueAxisY.Size = new System.Drawing.Size(13, 13);
-            this.ValueAxisY.TabIndex = 16;
-            this.ValueAxisY.Text = "0";
-            // 
-            // ValueAxisZ
-            // 
-            this.ValueAxisZ.AutoSize = true;
-            this.ValueAxisZ.Location = new System.Drawing.Point(633, 286);
-            this.ValueAxisZ.Name = "ValueAxisZ";
-            this.ValueAxisZ.Size = new System.Drawing.Size(13, 13);
-            this.ValueAxisZ.TabIndex = 17;
-            this.ValueAxisZ.Text = "0";
+            this.label2.Text = "Выбери, что вертеть";
             // 
             // RenderTimer
             // 
@@ -273,7 +123,7 @@
             // WireCheckBox
             // 
             this.WireCheckBox.AutoSize = true;
-            this.WireCheckBox.Location = new System.Drawing.Point(519, 118);
+            this.WireCheckBox.Location = new System.Drawing.Point(519, 56);
             this.WireCheckBox.Name = "WireCheckBox";
             this.WireCheckBox.Size = new System.Drawing.Size(75, 17);
             this.WireCheckBox.TabIndex = 18;
@@ -281,28 +131,10 @@
             this.WireCheckBox.UseVisualStyleBackColor = true;
             this.WireCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // ValueAngle
-            // 
-            this.ValueAngle.AutoSize = true;
-            this.ValueAngle.Location = new System.Drawing.Point(681, 286);
-            this.ValueAngle.Name = "ValueAngle";
-            this.ValueAngle.Size = new System.Drawing.Size(13, 13);
-            this.ValueAngle.TabIndex = 19;
-            this.ValueAngle.Text = "0";
-            // 
-            // ValueZoom
-            // 
-            this.ValueZoom.AutoSize = true;
-            this.ValueZoom.Location = new System.Drawing.Point(732, 286);
-            this.ValueZoom.Name = "ValueZoom";
-            this.ValueZoom.Size = new System.Drawing.Size(13, 13);
-            this.ValueZoom.TabIndex = 20;
-            this.ValueZoom.Text = "0";
-            // 
             // AutoRotateCheckBox
             // 
             this.AutoRotateCheckBox.AutoSize = true;
-            this.AutoRotateCheckBox.Location = new System.Drawing.Point(507, 355);
+            this.AutoRotateCheckBox.Location = new System.Drawing.Point(9, 25);
             this.AutoRotateCheckBox.Name = "AutoRotateCheckBox";
             this.AutoRotateCheckBox.Size = new System.Drawing.Size(78, 17);
             this.AutoRotateCheckBox.TabIndex = 21;
@@ -311,9 +143,9 @@
             // 
             // AutoRotateXTrackBar
             // 
-            this.AutoRotateXTrackBar.Location = new System.Drawing.Point(537, 378);
-            this.AutoRotateXTrackBar.Maximum = 360;
-            this.AutoRotateXTrackBar.Minimum = -360;
+            this.AutoRotateXTrackBar.LargeChange = 1;
+            this.AutoRotateXTrackBar.Location = new System.Drawing.Point(39, 48);
+            this.AutoRotateXTrackBar.Minimum = -10;
             this.AutoRotateXTrackBar.Name = "AutoRotateXTrackBar";
             this.AutoRotateXTrackBar.Size = new System.Drawing.Size(189, 45);
             this.AutoRotateXTrackBar.TabIndex = 22;
@@ -323,7 +155,7 @@
             // AutoRotateXLabel
             // 
             this.AutoRotateXLabel.AutoSize = true;
-            this.AutoRotateXLabel.Location = new System.Drawing.Point(515, 388);
+            this.AutoRotateXLabel.Location = new System.Drawing.Point(17, 58);
             this.AutoRotateXLabel.Name = "AutoRotateXLabel";
             this.AutoRotateXLabel.Size = new System.Drawing.Size(14, 13);
             this.AutoRotateXLabel.TabIndex = 23;
@@ -332,7 +164,7 @@
             // ValueAutoRotateXLabel
             // 
             this.ValueAutoRotateXLabel.AutoSize = true;
-            this.ValueAutoRotateXLabel.Location = new System.Drawing.Point(732, 388);
+            this.ValueAutoRotateXLabel.Location = new System.Drawing.Point(234, 58);
             this.ValueAutoRotateXLabel.Name = "ValueAutoRotateXLabel";
             this.ValueAutoRotateXLabel.Size = new System.Drawing.Size(13, 13);
             this.ValueAutoRotateXLabel.TabIndex = 24;
@@ -341,7 +173,7 @@
             // ValueAutoRotateYLabel
             // 
             this.ValueAutoRotateYLabel.AutoSize = true;
-            this.ValueAutoRotateYLabel.Location = new System.Drawing.Point(732, 428);
+            this.ValueAutoRotateYLabel.Location = new System.Drawing.Point(234, 98);
             this.ValueAutoRotateYLabel.Name = "ValueAutoRotateYLabel";
             this.ValueAutoRotateYLabel.Size = new System.Drawing.Size(13, 13);
             this.ValueAutoRotateYLabel.TabIndex = 27;
@@ -350,7 +182,7 @@
             // AutoRotateYLabel
             // 
             this.AutoRotateYLabel.AutoSize = true;
-            this.AutoRotateYLabel.Location = new System.Drawing.Point(515, 428);
+            this.AutoRotateYLabel.Location = new System.Drawing.Point(17, 98);
             this.AutoRotateYLabel.Name = "AutoRotateYLabel";
             this.AutoRotateYLabel.Size = new System.Drawing.Size(14, 13);
             this.AutoRotateYLabel.TabIndex = 26;
@@ -358,9 +190,9 @@
             // 
             // AutoRotateYTrackBar
             // 
-            this.AutoRotateYTrackBar.Location = new System.Drawing.Point(537, 418);
-            this.AutoRotateYTrackBar.Maximum = 360;
-            this.AutoRotateYTrackBar.Minimum = -360;
+            this.AutoRotateYTrackBar.LargeChange = 1;
+            this.AutoRotateYTrackBar.Location = new System.Drawing.Point(39, 88);
+            this.AutoRotateYTrackBar.Minimum = -10;
             this.AutoRotateYTrackBar.Name = "AutoRotateYTrackBar";
             this.AutoRotateYTrackBar.Size = new System.Drawing.Size(189, 45);
             this.AutoRotateYTrackBar.TabIndex = 25;
@@ -370,7 +202,7 @@
             // ValueAutoRotateZLabel
             // 
             this.ValueAutoRotateZLabel.AutoSize = true;
-            this.ValueAutoRotateZLabel.Location = new System.Drawing.Point(732, 469);
+            this.ValueAutoRotateZLabel.Location = new System.Drawing.Point(234, 139);
             this.ValueAutoRotateZLabel.Name = "ValueAutoRotateZLabel";
             this.ValueAutoRotateZLabel.Size = new System.Drawing.Size(13, 13);
             this.ValueAutoRotateZLabel.TabIndex = 30;
@@ -379,7 +211,7 @@
             // AutoRotateZLabel
             // 
             this.AutoRotateZLabel.AutoSize = true;
-            this.AutoRotateZLabel.Location = new System.Drawing.Point(515, 469);
+            this.AutoRotateZLabel.Location = new System.Drawing.Point(17, 139);
             this.AutoRotateZLabel.Name = "AutoRotateZLabel";
             this.AutoRotateZLabel.Size = new System.Drawing.Size(14, 13);
             this.AutoRotateZLabel.TabIndex = 29;
@@ -387,63 +219,175 @@
             // 
             // AutoRotateZTrackBar
             // 
-            this.AutoRotateZTrackBar.Location = new System.Drawing.Point(537, 459);
-            this.AutoRotateZTrackBar.Maximum = 360;
-            this.AutoRotateZTrackBar.Minimum = -360;
+            this.AutoRotateZTrackBar.LargeChange = 1;
+            this.AutoRotateZTrackBar.Location = new System.Drawing.Point(39, 129);
+            this.AutoRotateZTrackBar.Minimum = -10;
             this.AutoRotateZTrackBar.Name = "AutoRotateZTrackBar";
             this.AutoRotateZTrackBar.Size = new System.Drawing.Size(189, 45);
             this.AutoRotateZTrackBar.TabIndex = 28;
             this.AutoRotateZTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.AutoRotateZTrackBar.Scroll += new System.EventHandler(this.AutoRotateZTrackBar_Scroll);
             // 
+            // AutoRotateGroupBox
+            // 
+            this.AutoRotateGroupBox.Controls.Add(this.AutoRotateZTrackBar);
+            this.AutoRotateGroupBox.Controls.Add(this.ValueAutoRotateZLabel);
+            this.AutoRotateGroupBox.Controls.Add(this.AutoRotateCheckBox);
+            this.AutoRotateGroupBox.Controls.Add(this.AutoRotateZLabel);
+            this.AutoRotateGroupBox.Controls.Add(this.AutoRotateXTrackBar);
+            this.AutoRotateGroupBox.Controls.Add(this.AutoRotateXLabel);
+            this.AutoRotateGroupBox.Controls.Add(this.ValueAutoRotateYLabel);
+            this.AutoRotateGroupBox.Controls.Add(this.ValueAutoRotateXLabel);
+            this.AutoRotateGroupBox.Controls.Add(this.AutoRotateYLabel);
+            this.AutoRotateGroupBox.Controls.Add(this.AutoRotateYTrackBar);
+            this.AutoRotateGroupBox.Location = new System.Drawing.Point(507, 293);
+            this.AutoRotateGroupBox.Name = "AutoRotateGroupBox";
+            this.AutoRotateGroupBox.Size = new System.Drawing.Size(259, 196);
+            this.AutoRotateGroupBox.TabIndex = 31;
+            this.AutoRotateGroupBox.TabStop = false;
+            this.AutoRotateGroupBox.Text = "Автовращение";
+            // 
+            // RotateZTrackBar
+            // 
+            this.RotateZTrackBar.Location = new System.Drawing.Point(546, 160);
+            this.RotateZTrackBar.Maximum = 360;
+            this.RotateZTrackBar.Minimum = -360;
+            this.RotateZTrackBar.Name = "RotateZTrackBar";
+            this.RotateZTrackBar.Size = new System.Drawing.Size(189, 45);
+            this.RotateZTrackBar.TabIndex = 37;
+            this.RotateZTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.RotateZTrackBar.Scroll += new System.EventHandler(this.RorateZTrackBar_Scroll);
+            // 
+            // ValueRotateZLabel
+            // 
+            this.ValueRotateZLabel.AutoSize = true;
+            this.ValueRotateZLabel.Location = new System.Drawing.Point(741, 170);
+            this.ValueRotateZLabel.Name = "ValueRotateZLabel";
+            this.ValueRotateZLabel.Size = new System.Drawing.Size(13, 13);
+            this.ValueRotateZLabel.TabIndex = 39;
+            this.ValueRotateZLabel.Text = "0";
+            // 
+            // TitleRotateZLabel
+            // 
+            this.TitleRotateZLabel.AutoSize = true;
+            this.TitleRotateZLabel.Location = new System.Drawing.Point(524, 170);
+            this.TitleRotateZLabel.Name = "TitleRotateZLabel";
+            this.TitleRotateZLabel.Size = new System.Drawing.Size(14, 13);
+            this.TitleRotateZLabel.TabIndex = 38;
+            this.TitleRotateZLabel.Text = "Z";
+            // 
+            // RotateXTrackBar
+            // 
+            this.RotateXTrackBar.Location = new System.Drawing.Point(546, 79);
+            this.RotateXTrackBar.Maximum = 360;
+            this.RotateXTrackBar.Minimum = -360;
+            this.RotateXTrackBar.Name = "RotateXTrackBar";
+            this.RotateXTrackBar.Size = new System.Drawing.Size(189, 45);
+            this.RotateXTrackBar.TabIndex = 31;
+            this.RotateXTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.RotateXTrackBar.Scroll += new System.EventHandler(this.RorateXTrackBar_Scroll);
+            // 
+            // TitleRotateXLabel
+            // 
+            this.TitleRotateXLabel.AutoSize = true;
+            this.TitleRotateXLabel.Location = new System.Drawing.Point(524, 89);
+            this.TitleRotateXLabel.Name = "TitleRotateXLabel";
+            this.TitleRotateXLabel.Size = new System.Drawing.Size(14, 13);
+            this.TitleRotateXLabel.TabIndex = 32;
+            this.TitleRotateXLabel.Text = "X";
+            // 
+            // ValueRotateYLabel
+            // 
+            this.ValueRotateYLabel.AutoSize = true;
+            this.ValueRotateYLabel.Location = new System.Drawing.Point(741, 129);
+            this.ValueRotateYLabel.Name = "ValueRotateYLabel";
+            this.ValueRotateYLabel.Size = new System.Drawing.Size(13, 13);
+            this.ValueRotateYLabel.TabIndex = 36;
+            this.ValueRotateYLabel.Text = "0";
+            // 
+            // ValueRotateXLabel
+            // 
+            this.ValueRotateXLabel.AutoSize = true;
+            this.ValueRotateXLabel.Location = new System.Drawing.Point(741, 89);
+            this.ValueRotateXLabel.Name = "ValueRotateXLabel";
+            this.ValueRotateXLabel.Size = new System.Drawing.Size(13, 13);
+            this.ValueRotateXLabel.TabIndex = 33;
+            this.ValueRotateXLabel.Text = "0";
+            // 
+            // TitleRotateYLabel
+            // 
+            this.TitleRotateYLabel.AutoSize = true;
+            this.TitleRotateYLabel.Location = new System.Drawing.Point(524, 129);
+            this.TitleRotateYLabel.Name = "TitleRotateYLabel";
+            this.TitleRotateYLabel.Size = new System.Drawing.Size(14, 13);
+            this.TitleRotateYLabel.TabIndex = 35;
+            this.TitleRotateYLabel.Text = "Y";
+            // 
+            // RotateYTrackBar
+            // 
+            this.RotateYTrackBar.Location = new System.Drawing.Point(546, 119);
+            this.RotateYTrackBar.Maximum = 360;
+            this.RotateYTrackBar.Minimum = -360;
+            this.RotateYTrackBar.Name = "RotateYTrackBar";
+            this.RotateYTrackBar.Size = new System.Drawing.Size(189, 45);
+            this.RotateYTrackBar.TabIndex = 34;
+            this.RotateYTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.RotateYTrackBar.Scroll += new System.EventHandler(this.RorateYTrackBar_Scroll);
+            // 
+            // LinkLabel
+            // 
+            this.LinkLabel.AutoSize = true;
+            this.LinkLabel.Location = new System.Drawing.Point(711, 57);
+            this.LinkLabel.Name = "LinkLabel";
+            this.LinkLabel.Size = new System.Drawing.Size(55, 13);
+            this.LinkLabel.TabIndex = 40;
+            this.LinkLabel.TabStop = true;
+            this.LinkLabel.Text = "Сбросить";
+            this.LinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_LinkClicked);
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Location = new System.Drawing.Point(757, 495);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox.TabIndex = 41;
+            this.pictureBox.TabStop = false;
+            this.pictureBox.Click += new System.EventHandler(this.pictureBox_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 516);
-            this.Controls.Add(this.ValueAutoRotateZLabel);
-            this.Controls.Add(this.AutoRotateZLabel);
-            this.Controls.Add(this.AutoRotateZTrackBar);
-            this.Controls.Add(this.ValueAutoRotateYLabel);
-            this.Controls.Add(this.AutoRotateYLabel);
-            this.Controls.Add(this.AutoRotateYTrackBar);
-            this.Controls.Add(this.ValueAutoRotateXLabel);
-            this.Controls.Add(this.AutoRotateXLabel);
-            this.Controls.Add(this.AutoRotateXTrackBar);
-            this.Controls.Add(this.AutoRotateCheckBox);
-            this.Controls.Add(this.ValueZoom);
-            this.Controls.Add(this.ValueAngle);
+            this.Controls.Add(this.pictureBox);
+            this.Controls.Add(this.LinkLabel);
+            this.Controls.Add(this.RotateZTrackBar);
+            this.Controls.Add(this.AutoRotateGroupBox);
+            this.Controls.Add(this.ValueRotateZLabel);
             this.Controls.Add(this.WireCheckBox);
-            this.Controls.Add(this.ValueAxisZ);
-            this.Controls.Add(this.ValueAxisY);
-            this.Controls.Add(this.ValueAxisX);
-            this.Controls.Add(this.TrackBarZoom);
-            this.Controls.Add(this.TitleZoom);
-            this.Controls.Add(this.TrackBarAngle);
-            this.Controls.Add(this.TitleAngle);
-            this.Controls.Add(this.TrackBarAxisZ);
-            this.Controls.Add(this.TitleAxisZ);
-            this.Controls.Add(this.TrackBarAxisY);
-            this.Controls.Add(this.TitleAxisY);
-            this.Controls.Add(this.TrackBarAxisX);
-            this.Controls.Add(this.TitleAxisX);
+            this.Controls.Add(this.TitleRotateZLabel);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.RotateXTrackBar);
+            this.Controls.Add(this.TitleRotateXLabel);
             this.Controls.Add(this.ObjectComboBox);
-            this.Controls.Add(this.AxisComboBox);
+            this.Controls.Add(this.ValueRotateYLabel);
             this.Controls.Add(this.AnT);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Controls.Add(this.ValueRotateXLabel);
+            this.Controls.Add(this.RotateYTrackBar);
+            this.Controls.Add(this.TitleRotateYLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "MainForm";
-            this.Text = "Преобразование 3D примитивов";
+            this.Text = "Деградация в кубе";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBarAxisX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBarAxisY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBarAxisZ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBarAngle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBarZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AutoRotateXTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AutoRotateYTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AutoRotateZTrackBar)).EndInit();
+            this.AutoRotateGroupBox.ResumeLayout(false);
+            this.AutoRotateGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RotateZTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RotateXTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RotateYTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -452,27 +396,10 @@
         #endregion
 
         private Tao.Platform.Windows.SimpleOpenGlControl AnT;
-        private System.Windows.Forms.ComboBox AxisComboBox;
         private System.Windows.Forms.ComboBox ObjectComboBox;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label TitleAxisX;
-        private System.Windows.Forms.TrackBar TrackBarAxisX;
-        private System.Windows.Forms.TrackBar TrackBarAxisY;
-        private System.Windows.Forms.Label TitleAxisY;
-        private System.Windows.Forms.TrackBar TrackBarAxisZ;
-        private System.Windows.Forms.Label TitleAxisZ;
-        private System.Windows.Forms.TrackBar TrackBarAngle;
-        private System.Windows.Forms.Label TitleAngle;
-        private System.Windows.Forms.TrackBar TrackBarZoom;
-        private System.Windows.Forms.Label TitleZoom;
-        private System.Windows.Forms.Label ValueAxisX;
-        private System.Windows.Forms.Label ValueAxisY;
-        private System.Windows.Forms.Label ValueAxisZ;
         private System.Windows.Forms.Timer RenderTimer;
         private System.Windows.Forms.CheckBox WireCheckBox;
-        private System.Windows.Forms.Label ValueAngle;
-        private System.Windows.Forms.Label ValueZoom;
         private System.Windows.Forms.CheckBox AutoRotateCheckBox;
         private System.Windows.Forms.TrackBar AutoRotateXTrackBar;
         private System.Windows.Forms.Label AutoRotateXLabel;
@@ -483,6 +410,18 @@
         private System.Windows.Forms.Label ValueAutoRotateZLabel;
         private System.Windows.Forms.Label AutoRotateZLabel;
         private System.Windows.Forms.TrackBar AutoRotateZTrackBar;
+        private System.Windows.Forms.GroupBox AutoRotateGroupBox;
+        private System.Windows.Forms.TrackBar RotateZTrackBar;
+        private System.Windows.Forms.Label ValueRotateZLabel;
+        private System.Windows.Forms.Label TitleRotateZLabel;
+        private System.Windows.Forms.TrackBar RotateXTrackBar;
+        private System.Windows.Forms.Label TitleRotateXLabel;
+        private System.Windows.Forms.Label ValueRotateYLabel;
+        private System.Windows.Forms.Label ValueRotateXLabel;
+        private System.Windows.Forms.Label TitleRotateYLabel;
+        private System.Windows.Forms.TrackBar RotateYTrackBar;
+        private System.Windows.Forms.LinkLabel LinkLabel;
+        private System.Windows.Forms.PictureBox pictureBox;
     }
 }
 

@@ -18,5 +18,12 @@ namespace TestGLUT
             Y = 0;
             Z = 0;
         }
+
+        public static double CheckAngle(double Angle)
+        {
+            if (Angle > 360) return Angle - 720;
+            else if (Angle < -360) return 720 + Angle;
+            else return Angle;
+        }
     }
 }

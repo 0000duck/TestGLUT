@@ -19,6 +19,7 @@ namespace TestGLUT
         // полученные при перетаскивании ползунков пользователем 
         private Interaction Inter = new Interaction();
         private Rotate R = new Rotate();
+        private Angles AutoR = new Angles();
 
 
         public MainForm()
@@ -59,7 +60,6 @@ namespace TestGLUT
             Gl.glEnable(Gl.GL_LIGHT0);
 
             // установка первых элементов в списках combobox 
-            AxisComboBox.SelectedIndex = 0;
             ObjectComboBox.SelectedIndex = 0;
 
             // активация таймера, вызывающего функцию для визуализации 
@@ -72,52 +72,7 @@ namespace TestGLUT
             // вызываем функцию отрисовки сцены 
             Draw();
         }
-
-        // событие изменения значения 
-        private void TrackBarAxisX_Scroll(object sender, EventArgs e)
-        {
-            // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            Inter.Camera.X = (double)TrackBarAxisX.Value / 1000.0;
-            // подписываем это значение в label элементе под данным ползунком 
-            ValueAxisX.Text = Inter.Camera.X.ToString();
-        }
-
-        // событие изменения значения 
-        private void TrackBarAxisY_Scroll(object sender, EventArgs e)
-        {
-            // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            Inter.Camera.Y = (double)TrackBarAxisY.Value / 1000.0;
-            // подписываем это значение в label элементе под данным ползунком 
-            ValueAxisY.Text = Inter.Camera.Y.ToString();
-        }
-
-        // событие изменения значения 
-        private void TrackBarAxisZ_Scroll(object sender, EventArgs e)
-        {
-            // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            Inter.Camera.Z = (double)TrackBarAxisZ.Value / 1000.0;
-            // подписываем это значение в label элементе под данным ползунком 
-            ValueAxisZ.Text = Inter.Camera.Z.ToString();
-        }
-
-        // событие изменения значения 
-        private void TrackBarAngle_Scroll(object sender, EventArgs e)
-        {
-            // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            //Inter.Angle = (double)TrackBarAngle.Value;
-            // подписываем это значение в label элементе под данным ползунком 
-            ValueAngle.Text = Inter.Angle.ToString();
-        }
-
-        // событие изменения значения 
-        private void TrackBarZoom_Scroll(object sender, EventArgs e)
-        {
-            // переводим значение, установившееся в элементе trackBar в необходимый нам формат 
-            Inter.Camera.Zoom = (double)TrackBarZoom.Value / 1000;
-            // подписываем это значение в label элементе под данным ползунком 
-            ValueZoom.Text = Inter.Camera.Zoom.ToString();
-        }
-
+        
         // изменения значения чекбокса 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -133,32 +88,7 @@ namespace TestGLUT
                 Inter.Wire = false;
             }
         }
-
-        // изменение в элементах comboBox 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // в зависимости от выбранного режима 
-            switch (AxisComboBox.SelectedIndex)
-            {
-                // устанавливаем необходимую ось (будет использована в функции glRotate**) 
-                case 0:
-                    {
-                        Inter.Rotation.SelectX();
-                        break;
-                    }
-                case 1:
-                    {
-                        Inter.Rotation.SelectY();
-                        break;
-                    }
-                case 2:
-                    {
-                        Inter.Rotation.SelectZ();
-                        break;
-                    }
-            }
-        }
-
+        
         // функция отрисовки 
         private void Draw()
         {
@@ -232,6 +162,72 @@ namespace TestGLUT
                             Glut.glutSolidTorus(0.5, 1.5, 32, 32);
                         break;
                     }
+                case 5:
+                    {
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
+                            Glut.glutWireDodecahedron(); // Додекайдер
+                        else
+                            Glut.glutSolidDodecahedron();
+                        break;
+                    }
+                case 6:
+                    {
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
+                            Glut.glutWireIcosahedron(); // исосахедрон
+                        else
+                            Glut.glutSolidIcosahedron();
+                        break;
+                    }
+                case 7:
+                    {
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
+                            Glut.glutWireOctahedron();
+                        else
+                            Glut.glutSolidOctahedron();
+                        break;
+                    }
+                case 8:
+                    {
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
+                            Glut.glutWireRhombicDodecahedron();
+                        else
+                            Glut.glutSolidRhombicDodecahedron();
+                        break;
+                    }
+                case 9:
+                    {
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
+                            Glut.glutWireSierpinskiSponge(3, new double[] { 0.0, 0.2, 0.5}, 2);
+                        else
+                            Glut.glutSolidSierpinskiSponge(3, new double[] { 0.0, 0.2, 0.5 }, 2);
+                        break;
+                    }
+                case 10:
+                    {
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
+                            Glut.glutWireTeapot(2); // чайник
+                        else
+                            Glut.glutSolidTeapot(2);
+                        break;
+                    }
+                case 11:
+                    {
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
+                            Glut.glutWireTetrahedron(); // херня
+                        else
+                            Glut.glutSolidTetrahedron();
+                        break;
+                    }
+                    /*
+                case 100:
+                    {
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
+                            Glut.glutWire; // херня
+                        else
+                            Glut.glutSolid;
+                        break;
+                    }
+                    */
             }
 
             if (AutoRotateCheckBox.Checked)
@@ -260,26 +256,26 @@ namespace TestGLUT
             else if (e.Delta == -120)
                 Inter.Camera.Zoom = Inter.Camera.Zoom + 0.1;
 
-            TrackBarZoom.Value = (int)(Inter.Camera.Zoom * 1000);
-            ValueZoom.Text = Inter.Camera.Zoom.ToString();
+            //TrackBarZoom.Value = (int)(Inter.Camera.Zoom * 1000);
+            //ValueZoom.Text = Inter.Camera.Zoom.ToString();
             
         }
 
         private void AutoRotateXTrackBar_Scroll(object sender, EventArgs e)
         {
-            Inter.Angle.X = AutoRotateXTrackBar.Value;
+            AutoR.X = AutoRotateXTrackBar.Value;
             ValueAutoRotateXLabel.Text = AutoRotateXTrackBar.Value.ToString();
         }
 
         private void AutoRotateYTrackBar_Scroll(object sender, EventArgs e)
         {
-            Inter.Angle.Y = AutoRotateYTrackBar.Value;
+            AutoR.Y = AutoRotateYTrackBar.Value;
             ValueAutoRotateYLabel.Text = AutoRotateYTrackBar.Value.ToString();
         }
 
         private void AutoRotateZTrackBar_Scroll(object sender, EventArgs e)
         {
-            Inter.Angle.Z = AutoRotateZTrackBar.Value;
+            AutoR.Z = AutoRotateZTrackBar.Value;
             ValueAutoRotateZLabel.Text = AutoRotateZTrackBar.Value.ToString();
         }
 
@@ -299,18 +295,55 @@ namespace TestGLUT
         {
             if(AutoRotateCheckBox.Checked)
             {
-                Inter.Angle.X = Inter.Angle.X == 360 ? -360 : Inter.Angle.X + 1;
-                ValueAutoRotateXLabel.Text = Inter.Angle.X.ToString();
-                AutoRotateXTrackBar.Value = (int)Inter.Angle.X;
+                Inter.Angle.X = Angles.CheckAngle(Inter.Angle.X + AutoR.X);
+                ValueRotateXLabel.Text = Inter.Angle.X.ToString();
+                RotateXTrackBar.Value = (int)Inter.Angle.X;
 
-                Inter.Angle.Y = Inter.Angle.Y == 360 ? -360 : Inter.Angle.Y + 2;
-                ValueAutoRotateYLabel.Text = Inter.Angle.Y.ToString();
-                AutoRotateYTrackBar.Value = (int)Inter.Angle.Y;
+                Inter.Angle.Y = Angles.CheckAngle(Inter.Angle.Y + AutoR.Y);
+                ValueRotateYLabel.Text = Inter.Angle.Y.ToString();
+                RotateYTrackBar.Value = (int)Inter.Angle.Y;
 
-                Inter.Angle.Z = Inter.Angle.Z == 360 ? -360 : Inter.Angle.Z + 3;
-                ValueAutoRotateZLabel.Text = Inter.Angle.Z.ToString();
-                AutoRotateZTrackBar.Value = (int)Inter.Angle.Z;
+                Inter.Angle.Z = Angles.CheckAngle(Inter.Angle.Z + AutoR.Z);
+                ValueRotateZLabel.Text = Inter.Angle.Z.ToString();
+                RotateZTrackBar.Value = (int)Inter.Angle.Z;
             }
+        }
+
+        private void RorateXTrackBar_Scroll(object sender, EventArgs e)
+        {
+            Inter.Angle.X = RotateXTrackBar.Value;
+            ValueRotateXLabel.Text = RotateXTrackBar.Value.ToString();
+        }
+
+        private void RorateYTrackBar_Scroll(object sender, EventArgs e)
+        {
+            Inter.Angle.Y = RotateYTrackBar.Value;
+            ValueRotateYLabel.Text = RotateYTrackBar.Value.ToString();
+        }
+
+        private void RorateZTrackBar_Scroll(object sender, EventArgs e)
+        {
+            Inter.Angle.Z = RotateZTrackBar.Value;
+            ValueRotateZLabel.Text = RotateZTrackBar.Value.ToString();
+        }
+
+        private void LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Inter.Angle = new Angles();
+
+            RotateXTrackBar.Value = (int)Inter.Angle.X;
+            ValueRotateXLabel.Text = RotateXTrackBar.Value.ToString();
+
+            RotateYTrackBar.Value = (int)Inter.Angle.Y;
+            ValueRotateYLabel.Text = RotateYTrackBar.Value.ToString();
+
+            RotateZTrackBar.Value = (int)Inter.Angle.Z;
+            ValueRotateZLabel.Text = RotateZTrackBar.Value.ToString();
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            Verse.Show();
         }
     }
 }
