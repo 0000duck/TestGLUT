@@ -26,7 +26,8 @@ namespace TestGLUT
         {
             InitializeComponent();
             AnT.InitializeContexts();
-            
+
+            Icon = Properties.Resources.icon;
             AnT.MouseWheel += new MouseEventHandler(AnT_MouseWheel);
         }
 
@@ -216,6 +217,22 @@ namespace TestGLUT
                             Glut.glutWireTetrahedron(); // херня
                         else
                             Glut.glutSolidTetrahedron();
+                        break;
+                    }
+                case 12:
+                    {
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
+                            Glut.glutWireSierpinskiSponge(1, new double[] { 0.0, 0.3, 0.5 }, 2); 
+                        else
+                            Glut.glutSolidSierpinskiSponge(1, new double[] { 0.0, 0.3, 0.5 }, 2);
+                        break;
+                    }
+                case 13:
+                    {
+                        if (Inter.Wire) // если установлен сеточный режим визуализации 
+                            Glut.glutWireSierpinskiSponge(7, new double[] { 0.0, 0.3, 0.5, 0.7, 0.9 }, 2);
+                        else
+                            Glut.glutSolidSierpinskiSponge(7, new double[] { 0.0, 0.3, 0.5, 0.7, 0.9 }, 2);
                         break;
                     }
                     /*

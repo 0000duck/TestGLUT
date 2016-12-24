@@ -100,7 +100,9 @@
             "RhombicDodecahedron",
             "SierpinskiSponge (огонь вообще)",
             "Чайник",
-            "Tetrahedron"});
+            "Tetrahedron",
+            "Трайфорс",
+            "Молекулярное представление трайфорса"});
             this.ObjectComboBox.Location = new System.Drawing.Point(519, 28);
             this.ObjectComboBox.Name = "ObjectComboBox";
             this.ObjectComboBox.Size = new System.Drawing.Size(247, 21);
@@ -376,6 +378,7 @@
             this.Controls.Add(this.RotateYTrackBar);
             this.Controls.Add(this.TitleRotateYLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MaximumSize = new System.Drawing.Size(794, 555);
             this.Name = "MainForm";
             this.Text = "Деградация в кубе";
             this.Load += new System.EventHandler(this.MainForm_Load);
